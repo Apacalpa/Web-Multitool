@@ -1,0 +1,316 @@
+[
+  {
+    "id": "Abuse",
+    "title": "Reputation",
+    "urls": []
+  },
+  {
+    "id": "Info",
+    "title": "Information",
+    "urls": []
+  },
+  {
+    "id": "CyberChef",
+    "title": "CyberChef",
+    "urls": []
+  },
+  {
+    "id": "EventError",
+    "title": "Event ID/Error code",
+    "urls": [
+      {
+        "id": "errorinfo",
+        "name": "Microsoft Error Info",
+        "url": "https://login.microsoftonline.com/error?code="
+      },
+      {
+        "id": "eventinfo",
+        "name": "Event ID Info",
+        "url": "https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid="
+      }
+    ]
+  },
+  {
+    "id": "Other",
+    "title": "Other",
+    "urls": []
+  },
+  {
+    "id": "IPAbuse",
+    "title": "IP Abuse",
+    "parentId": "Abuse",
+    "urls": [
+      {
+        "id": "vt",
+        "name": "Virus Total",
+        "url": "https://www.virustotal.com/gui/search/"
+      },
+      {
+        "id": "abuseipdb",
+        "name": "AbuseIPDB",
+        "url": "https://www.abuseipdb.com/check/"
+      },
+      {
+        "id": "greynoise",
+        "name": "GreyNoise",
+        "url": "https://viz.greynoise.io/ip/"
+      },
+      {
+        "id": "xforce",
+        "name": "IBM X-Force",
+        "url": "https://exchange.xforce.ibmcloud.com/ip/"
+      },
+      {
+        "id": "talos",
+        "name": "Cisco Talos",
+        "url": "https://www.talosintelligence.com/reputation_center/lookup?search="
+      },
+      {
+        "id": "shodan",
+        "name": "Shodan",
+        "url": "https://www.shodan.io/host/"
+      },
+      {
+        "id": "projecthoneypot",
+        "name": "Project Honey Pot",
+        "url": "https://www.projecthoneypot.org/ip_"
+      },
+      {
+        "id": "feodotracker",
+        "name": "Feodo Tracker",
+        "url": "https://feodotracker.abuse.ch/browse/host/"
+      }
+    ]
+  },
+  {
+    "id": "IPInfo",
+    "title": "IP Info",
+    "parentId": "Info",
+    "urls": [
+      { "id": "whois", "name": "WHOIS", "url": "https://www.whois.com/whois/" },
+      {
+        "id": "domaintools",
+        "name": "DomainTools",
+        "url": "https://whois.domaintools.com/"
+      }
+    ]
+  },
+  {
+    "id": "HashRep",
+    "title": "Hash Reputation (SHA256)",
+    "parentId": "Abuse",
+    "urls": [
+      {
+        "id": "vt",
+        "name": "Virus Total",
+        "url": "https://www.virustotal.com/gui/search/"
+      },
+      {
+        "id": "xforce",
+        "name": "XForce",
+        "url": "https://exchange.xforce.ibmcloud.com/malware/"
+      },
+      {
+        "id": "talos",
+        "name": "Talos",
+        "url": "https://www.talosintelligence.com/talos_file_reputation?s="
+      },
+      {
+        "id": "bazaar",
+        "name": "Bazaar.Abuse",
+        "url": "https://bazaar.abuse.ch/browse.php?search=sha256:"
+      }
+    ]
+  },
+  {
+    "id": "DomainRep",
+    "title": "Domain Reputation",
+    "parentId": "Abuse",
+    "urls": [
+      {
+        "id": "otx",
+        "name": "OTX",
+        "url": "https://otx.alienvault.com/indicator/domain/"
+      },
+      {
+        "id": "vt",
+        "name": "Virus Total",
+        "url": "https://www.virustotal.com/gui/search/"
+      },
+      {
+        "id": "barracuda",
+        "name": "Barracuda",
+        "url": "https://www.barracudacentral.org/lookups/lookup-reputation?lookup_entry="
+      },
+      {
+        "id": "urlhaus",
+        "name": "urlhaus.abuse",
+        "url": "https://urlhaus.abuse.ch/browse.php?search="
+      }
+    ]
+  },
+  {
+    "id": "CryptoInfo",
+    "title": "Blockchain Address Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "crypto",
+        "name": "Crypto Info",
+        "url": "https://www.blockchain.com/explorer/search?search="
+      }
+    ]
+  },
+  {
+    "id": "MACInfo",
+    "title": "MAC Address Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "mac",
+        "name": "MAC Info",
+        "url": "https://maclookup.app/search/result?mac="
+      }
+    ]
+  },
+  {
+    "id": "UAInfo",
+    "title": "User Agent Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "ua",
+        "name": "UA Info",
+        "url": "https://Henard.tech/ua-parser.html?ua="
+      }
+    ]
+  },
+  {
+    "id": "CVEInfo",
+    "title": "CVE Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "cve",
+        "name": "CVE Info",
+        "url": "https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword="
+      }
+    ]
+  },
+  {
+    "id": "FileInfo",
+    "title": "File Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "file",
+        "name": "File Info",
+        "url": "https://www.file.net/search.html?q=site:file.net+"
+      }
+    ]
+  },
+  {
+    "id": "FileExtInfo",
+    "title": "File Extension Info",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "fileext",
+        "name": "File Extension Info",
+        "url": "https://fileinfo.com/extension/"
+      }
+    ]
+  },
+  {
+    "id": "LOLBinLookup",
+    "title": "LOLBin Lookup",
+    "parentId": "Other",
+    "urls": [
+      {
+        "id": "lolbin",
+        "name": "LOLBin Lookup",
+        "url": "https://lolbas-project.github.io/#"
+      }
+    ]
+  },
+  {
+    "id": "VPNInfo",
+    "title": "VPN Check",
+    "parentId": "Abuse",
+    "urls": [
+        {
+            "id": "iphub",
+            "name": "iphub",
+            "url": "https://iphub.info/?ip="
+        },
+        {
+            "id": "ip2location",
+            "name": "ip2location",
+            "url": "https://www.ip2location.com/demo/"
+        },
+        {
+            "id": "db-ip",
+            "name": "db-ip",
+            "url": "https://db-ip.com/"
+        },
+        {
+            "id": "torproject",
+            "name": "metrics.torproject",
+            "url": "https://metrics.torproject.org/rs.html#search/"
+        }
+    ]
+  },
+  {
+    "id": "EmailInfo",
+    "title": "Email Check",
+    "parentId": "Abuse",
+    "urls": [
+        {
+            "id": "EmailInfo-xforce",
+            "name": "XForce",
+            "url": "https://exchange.xforce.ibmcloud.com/url/"
+        },
+        {
+            "id": "EmailInfo-mxtoolbox",
+            "name": "mxtoolbox",
+            "url": "https://mxtoolbox.com/SuperTool.aspx?run=toolpage&action=blacklist:"
+        }
+    ]
+  },
+  {
+    "id": "CCMagic",
+    "title": "Magic",
+    "parentId": "CyberChef",
+    "urls": [
+      {
+        "id": "ccmagic",
+        "name": "CC Magic",
+        "url": "https://cyberchef.org/#recipe=Magic(3,false,false,'')&input="
+      }
+    ]
+  },
+  {
+    "id": "CCDefang",
+    "title": "Defang Content",
+    "parentId": "CyberChef",
+    "urls": [
+      {
+        "id": "ccdefang",
+        "name": "CC Defang",
+        "url": "https://cyberchef.org/#recipe=Defang_URL(true,true,true,'Valid%20domains%20and%20full%20URLs')Defang_IP_Addresses()URL_Decode()&input="
+      }
+    ]
+  },
+  {
+    "id": "CCResolveDomain",
+    "title": "Resolve Domain(s)",
+    "parentId": "CyberChef",
+    "urls": [
+      {
+        "id": "ccresolvedomain",
+        "name": "CC Resolve Domain",
+        "url": "https://gchq.github.io/CyberChef/#recipe=Find_/_Replace(%7B'option':'Simple%20string','string':'%2520'%7D,'%5C%5Cn',true,false,true,false)Fork('%5C%5Cn','%5C%5Cn',false)DNS_over_HTTPS('https://dns.google.com/resolve','A',false,false)JPath_expression('Answer%5B0%5D%5B%5C'name,data%5C'%5D','',true)Find_/_Replace(%7B'option':'Simple%20string','string':'.%22%22'%7D,'%20%3D%3E%20',true,false,true,false)Find_/_Replace(%7B'option':'Simple%20string','string':'%22'%7D,'',true,false,true,false)&input="
+      }
+    ]
+  }
+]
