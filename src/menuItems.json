@@ -217,6 +217,8 @@
       {
         "id": "fileext",
         "name": "File Extension Info",
+        "encodings": ["urlencode"],
+        "replace": {".": ""},
         "url": "https://fileinfo.com/extension/"
       }
     ]
@@ -285,6 +287,8 @@
       {
         "id": "ccmagic",
         "name": "CC Magic",
+        "encodings": ["urlencode","base64"],
+        "replace": {"=": ""},
         "url": "https://cyberchef.org/#recipe=Magic(3,false,false,'')&input="
       }
     ]
@@ -297,6 +301,8 @@
       {
         "id": "ccdefang",
         "name": "CC Defang",
+        "encodings": ["urlencode","base64"],
+        "replace": {"=": ""},
         "url": "https://cyberchef.org/#recipe=Defang_URL(true,true,true,'Valid%20domains%20and%20full%20URLs')Defang_IP_Addresses()URL_Decode()&input="
       }
     ]
@@ -309,6 +315,8 @@
       {
         "id": "ccresolvedomain",
         "name": "CC Resolve Domain",
+        "encodings": ["urlencode","base64"],
+        "replace": {"=": ""},
         "url": "https://gchq.github.io/CyberChef/#recipe=Find_/_Replace(%7B'option':'Simple%20string','string':'%2520'%7D,'%5C%5Cn',true,false,true,false)Fork('%5C%5Cn','%5C%5Cn',false)DNS_over_HTTPS('https://dns.google.com/resolve','A',false,false)JPath_expression('Answer%5B0%5D%5B%5C'name,data%5C'%5D','',true)Find_/_Replace(%7B'option':'Simple%20string','string':'.%22%22'%7D,'%20%3D%3E%20',true,false,true,false)Find_/_Replace(%7B'option':'Simple%20string','string':'%22'%7D,'',true,false,true,false)&input="
       }
     ]
