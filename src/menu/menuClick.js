@@ -1,8 +1,15 @@
 export function fetchMenuItemsAndHandleMenuClick(menuId, urlId, info) {
-    fetch(chrome.runtime.getURL('menuItems.json'))
-        .then(response => response.json())
-        .then(data => handleMenuClick(data, menuId, urlId, info))
-        .catch(error => console.error('Error loading menu items:', error));
+    chrome.storage.sync.get('menuItems', (result) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error loading menu items from storage:', chrome.runtime.lastError.message);
+            fetchMenuItemsFromFile(menuId, urlId, info);
+        } else {
+            const menuItems = result.menuItems;
+            if (menuItems) {
+                handleMenuClick(menuItems, menuId, urlId, info);
+            }
+        }
+    });
 }
 
 function handleMenuClick(menuItems, menuId, urlId, info) {

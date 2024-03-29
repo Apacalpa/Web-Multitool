@@ -1,8 +1,20 @@
-import { fetchMenuItemsAndCreateMenus } from './menu/menu.js';
+import { fetchMenuItemsAndCreateMenus, fetchMenuItemsFromFile } from './menu/menu.js';
 import { fetchMenuItemsAndHandleMenuClick } from './menu/menuClick.js';
 
-chrome.runtime.onInstalled.addListener(() => {
-    fetchMenuItemsAndCreateMenus();
+// Check if menuItems are stored in chrome.storage.sync
+chrome.storage.sync.get('menuItems', (result) => {
+    if (chrome.runtime.lastError) {
+        console.error('Error loading menu items from storage:', chrome.runtime.lastError.message);
+    } else {
+        const menuItems = result.menuItems;
+        if (!menuItems) {
+            // If menuItems are not stored, fetch them from menuItems.json
+            fetchMenuItemsFromFile();
+        } else {
+            // If menuItems are stored, create menus using them
+            fetchMenuItemsAndCreateMenus();
+        }
+    }
 });
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
@@ -12,3 +24,13 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
 });
 
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.refreshMenu) {
+        // Trigger menu refresh
+        fetchMenuItemsAndCreateMenus();
+    }
+});
+
+chrome.action.onClicked.addListener(() => {
+    chrome.runtime.openOptionsPage();
+});

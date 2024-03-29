@@ -1,8 +1,27 @@
 export function fetchMenuItemsAndCreateMenus() {
+    chrome.storage.sync.get('menuItems', (result) => {
+        if (chrome.runtime.lastError) {
+            console.error('Error loading menu items from storage:', chrome.runtime.lastError.message);
+            fetchMenuItemsFromFile();
+        } else {
+            const menuItems = result.menuItems;
+            if (menuItems) {
+                createMenus(menuItems);
+            } else {
+                fetchMenuItemsFromFile();
+            }
+        }
+    });
+}
+
+export function fetchMenuItemsFromFile() {
     fetch(chrome.runtime.getURL('menuItems.json'))
         .then(response => response.json())
-        .then(createMenus)
-        .catch(error => console.error('Error loading menu items:', error));
+        .then((menuItems) => {
+            createMenus(menuItems);
+            chrome.storage.sync.set({ 'menuItems': menuItems });
+        })
+        .catch(error => console.error('Error loading menu items from file:', error));
 }
 
 function createMenus(menuItems) {
