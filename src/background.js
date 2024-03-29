@@ -8,10 +8,9 @@ chrome.storage.sync.get('menuItems', (result) => {
     } else {
         const menuItems = result.menuItems;
         if (!menuItems) {
-            // If menuItems are not stored, fetch them from menuItems.json
+            
             fetchMenuItemsFromFile();
         } else {
-            // If menuItems are stored, create menus using them
             fetchMenuItemsAndCreateMenus();
         }
     }
@@ -25,8 +24,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log('Message received from options page:', message);
     if (message.refreshMenu) {
-        // Trigger menu refresh
         fetchMenuItemsAndCreateMenus();
     }
 });

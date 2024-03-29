@@ -28,7 +28,6 @@ function handleMenuClick(menuItems, menuId, urlId, info) {
 
 function handleUrlAction(url, info) {
     let alteredText = info.selectionText;
-
     if (url.encodings) {
         url.encodings.forEach(encoding => {
             alteredText = applyEncoding(alteredText, encoding);

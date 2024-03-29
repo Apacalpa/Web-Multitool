@@ -5,9 +5,10 @@ export function fetchMenuItemsAndCreateMenus() {
             fetchMenuItemsFromFile();
         } else {
             const menuItems = result.menuItems;
-            if (menuItems) {
+            if (menuItems) {            
                 createMenus(menuItems);
             } else {
+                
                 fetchMenuItemsFromFile();
             }
         }
@@ -17,7 +18,7 @@ export function fetchMenuItemsAndCreateMenus() {
 export function fetchMenuItemsFromFile() {
     fetch(chrome.runtime.getURL('menuItems.json'))
         .then(response => response.json())
-        .then((menuItems) => {
+        .then((menuItems) => {      
             createMenus(menuItems);
             chrome.storage.sync.set({ 'menuItems': menuItems });
         })
@@ -25,11 +26,15 @@ export function fetchMenuItemsFromFile() {
 }
 
 function createMenus(menuItems) {
-    createMainMenu();
-    menuItems.forEach(menuItem => {
-        createMenuItem(menuItem);
+    
+    chrome.contextMenus.removeAll(() => { // Remove all existing context menu items
+        createMainMenu();
+        menuItems.forEach(menuItem => {
+            createMenuItem(menuItem);
+        });
     });
 }
+
 
 function createMainMenu() {
     chrome.contextMenus.create({
@@ -42,7 +47,6 @@ function createMainMenu() {
 function createMenuItem(menuItem, parentId = null) {
     const menuId = parentId ? parentId + "|" + menuItem.id : menuItem.id;
     const parentMenuId = parentId ? parentId + "|" : "";
-
     if (menuItem.urls) {
         createMenuWithSubItems(menuItem, menuId, parentMenuId);
     } else {
