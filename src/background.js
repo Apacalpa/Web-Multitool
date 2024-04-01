@@ -8,7 +8,6 @@ chrome.storage.sync.get('menuItems', (result) => {
     } else {
         const menuItems = result.menuItems;
         if (!menuItems) {
-            
             fetchMenuItemsFromFile();
         } else {
             fetchMenuItemsAndCreateMenus();

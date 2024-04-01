@@ -16,30 +16,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (menuItems) {
                     const menuItemsJSON = JSON.stringify(menuItems, null, 2);
                     jsonDisplay.value = menuItemsJSON;
-                    // Call the JSON linter function
                     lintJSON(menuItemsJSON);
                 } else {
                     jsonDisplay.value = 'No menu items found.';
-                    linterOutput.textContent = ''; // Clear previous linting result
-                    saveButton.disabled = false; // Enable save button
+                    linterOutput.textContent = '';
+                    saveButton.disabled = false;
                 }
             }
         });
     }
 
-    // Function to lint JSON data
     function lintJSON(jsonContent) {
         try {
             JSON.parse(jsonContent);
-            linterOutput.textContent = ''; // Clear linting error message
-            saveButton.disabled = false; // Enable save button
+            linterOutput.textContent = '';
+            saveButton.disabled = false;
         } catch (error) {
             linterOutput.textContent = 'JSON is not valid: ' + error.message;
-            saveButton.disabled = true; // Disable save button
+            saveButton.disabled = true;
         }
     }
 
-    // Function to save modified JSON content to storage
+
     function saveMenuItemsJSON(jsonContent) {
         try {
             const parsedJSON = JSON.parse(jsonContent);
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Function to import JSON file
     function importMenuItemsJSON(file) {
         const reader = new FileReader();
         reader.onload = function (event) {
@@ -72,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsText(file);
     }
 
-    // Function to export JSON data
     function exportMenuItemsJSON() {
         chrome.storage.sync.get('menuItems', (result) => {
             if (chrome.runtime.lastError) {
@@ -96,33 +92,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Display menuItems.json when the options page loads
+    function sendMessageToBackground() {
+        chrome.runtime.sendMessage({ refreshMenu: true }, (response) => {
+            console.log('Message sent to background script');
+        });
+    }
+    
     displayMenuItemsJSON();
 
-    // Save button click handler
     saveButton.addEventListener('click', function () {
         saveMenuItemsJSON(jsonDisplay.value);
+        sendMessageToBackground();
     });
 
-    // Import button click handler
     importButton.addEventListener('click', function () {
         fileInput.click();
     });
 
-    // File input change handler
     fileInput.addEventListener('change', function () {
         const file = fileInput.files[0];
         if (file) {
-            importMenuItemsJSON(file); // Make sure to pass the 'file' parameter
+            importMenuItemsJSON(file);
         }
     });
 
-    // Export button click handler
     exportButton.addEventListener('click', function () {
         exportMenuItemsJSON();
     });
 
-    // JSON display input event handler (for live linting)
     jsonDisplay.addEventListener('input', function () {
         lintJSON(jsonDisplay.value);
     });

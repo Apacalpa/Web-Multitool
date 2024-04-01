@@ -4,21 +4,32 @@
     "version": "0.0.1",
     "description": "Web Multi-tool is a powerful and user-friendly browser extension that can make stuff easier for you!",
     "background": {
-        "scripts": ["background.js"],
-        "type": "module"
+      "service_worker": "background.js",
+      "type": "module"
     },
     "icons": {
-        "16": "/icons/icon16.png",
-        "48": "/icons/icon48.png",
-        "128": "/icons/icon128.png"
+      "48": "/icons/icon48.png"
     },
     "permissions": [
-        "contextMenus"
+      "contextMenus",
+      "storage",
+      "<all_urls>"
     ],
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "soc-multitool@zdhenard42",
-			"strict_min_version": "109.0"
-		}
-	}
-}
+    "options_ui": {
+      "page": "options.html",
+      "open_in_tab": true
+    },
+    "browser_action": {
+      "default_popup": "options.html",
+      "default_icon": {
+        "48": "/icons/icon48.png"
+      }
+    },
+    "web_accessible_resources": [
+      {
+        "resources": ["menuItems.json"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  
