@@ -1,0 +1,24 @@
+[
+    {
+        "id": "searchengines",
+        "title": "Search Engines",
+        "urls": [
+            {
+                "id": "google",
+                "name": "Google",
+                "url": "https://www.google.nl/search?q="
+            }
+        ]
+    },
+    {
+        "id": "wikis",
+        "title": "Wikis",
+        "urls": [
+            {
+                "id": "wikipedia",
+                "name": "Wikipedia",
+                "url": "https://en.wikipedia.org/wiki/"
+            }
+        ]
+    }
+]

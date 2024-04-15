@@ -4,22 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEB Multi-tool - Options</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/addon/lint/lint.css">
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/addon/lint/jsonlint.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/addon/lint/lint.js"></script>
+    <script src="codemirror/addon/lint/json-lint.js"></script>
+
+
     <style>
         h1 {
             text-align: center;
+        }
+        .container {
+            max-width: calc(100vw - 40px); /* Adjust the pixel value as per your needs */
+        }
+        .CodeMirror {
+            height: 800px;
+            width: 100%;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
     <h1>WEB Multi-tool</h1>
-    <textarea id="jsonDisplay" rows="50" cols="80"></textarea><br>
-    <div id="linterOutput" style="color: rgb(97, 0, 177);"></div>
-    <button id="saveButton">Save</button>
-    <button id="importButton">Import</button>
-    <button id="exportButton">Export</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Your menu JSON</h2>
+                <textarea id="jsonDisplay" rows="30" cols="80" class="form-control"></textarea><br>
+                <button id="saveButton" class="btn btn-primary">Save</button>
+                <button id="importButton" class="btn btn-primary">Import</button>
+                <button id="exportButton" class="btn btn-primary">Export</button>
+                <input type="file" id="fileInput" style="display: none;">
+            </div>
+            <div class="col-md-6">
+                <h2>How to Create Your Own Menus</h2>
+<p>Follow these steps to create your own menus:</p>
+<ol>
+    <li>Create a JSON file with the following structure:</li>
+</ol>
+<pre>
+[
+    {
+        "id": "uniqueMenuId",
+        "title": "Menu Title",
+        "parentId": "parentMenuId", // Optional. If not provided, defaults to "mainMenu"
+        "urls": [
+            {
+                "id": "uniqueUrlId",
+                "name": "URL Name",
+                "url": "URL"
+            },
+            // More URLs...
+        ]
+    },
+    // More menus...
+]
+</pre>
+<p>Each object in the array represents a menu. The <strong>id</strong> is a unique identifier for the menu, and <strong>title</strong> is the name of the menu that will be displayed. The <strong>parentId</strong> is the ID of the parent menu. If not provided, the menu will be a child of the main menu. The <strong>urls</strong> array contains objects that represent the items in the menu. Each item has an <strong>id</strong>, a <strong>name</strong> that will be displayed, and a <strong>url</strong> that will be opened when the item is clicked.</p>
+<ol start="2">
+    <li>Upload the JSON file to the options page of the Chrome extension. The extension will load the menus defined in the JSON file and display them in the context menu.</li>
+</ol>
+<p>Please note that the URLs in the JSON file should be in the format expected by the Chrome extension. For example, if the extension expects URLs to be encoded in a certain way, users should encode their URLs in the same way in their JSON file.</p>
+<h2>Creating Nested Menus (Submenus)</h2>
+<p>To create a submenu, you need to specify the <strong>parentId</strong> property in your menu object. The <strong>parentId</strong> should be the <strong>id</strong> of the parent menu under which you want to create the submenu.</p>
 
-    <input type="file" id="fileInput" style="display: none;">
+<p>Here's an example:</p>
+<pre>
+[
+    {
+        "id": "parentMenu",
+        "title": "Parent Menu",
+        "urls": []
+    },
+    {
+        "id": "childMenu",
+        "title": "Child Menu",
+        "parentId": "parentMenu",
+        "urls": [
+            {
+                "id": "urlId1",
+                "name": "URL Name 1",
+                "url": "URL 1"
+            },
+            // More URLs...
+        ]
+    },
+    // More menus...
+]
+</pre>
+<p>In this example, "Child Menu" is a submenu of "Parent Menu". The <strong>parentId</strong> of "Child Menu" is set to the <strong>id</strong> of "Parent Menu". This creates a hierarchical relationship between the two menus.</p>
 
+<p>You can create multiple levels of nested menus by continuing to specify the <strong>parentId</strong> property for each submenu. Just make sure that the parent menu for each submenu is defined earlier in the JSON file.</p>
+
+<p>Remember, if the <strong>parentId</strong> property is not provided for a menu, it will be a child of the main menu.</p>
+<h2>Using Encodings and Replace in JSON</h2>
+<p>In the JSON structure for creating menus, you can specify encodings and replacements for each URL item. Here's how it works:</p>
+
+<h3>Encodings</h3>
+<p>The <strong>"encodings"</strong> property is an array that specifies the encodings to be applied to the selected text before it's inserted into the URL. The encodings are applied in the order they appear in the array.</p>
+
+<p>For now, the encodings are <strong>"urlencode"</strong> and <strong>"base64"</strong>. This means that the selected text can be URL encoded, and/or be base64 encoded.</p>
+
+<h3>Replace</h3>
+<p>The <strong>"replace"</strong> property is an object that specifies the replacements to be made in the selected text before it's inserted into the URL. Each key-value pair in the object represents a replacement, where the key is the string to be replaced, and the value is the string to replace it with.</p>
+
+<p>For example, the replace object is <strong>{"=": ""}</strong>. This means that all equals signs in the selected text will be removed before it's inserted into the URL.</p>
+
+<h2>Example</h2>
+<p>Here's an example based on a JSON file:</p>
+<pre>
+[
+    {
+        "id": "Abuse",
+        "title": "Reputation",
+        "urls": []
+    },
+    {
+        "id": "Info",
+        "title": "Information",
+        "urls": []
+    },
+    {
+        "id": "IPAbuse",
+        "title": "IP Abuse",
+        "parentId": "Abuse",
+        "urls": [
+            {
+                "id": "vt",
+                "name": "Virus Total",
+                "encodings": ["urlencode","base64"],
+                "replace": {"=": ""},
+                "url": "https://www.virustotal.com/gui/search/"
+            },
+            // More URLs...
+        ]
+    },
+    // More menus...
+]
+</pre>
+<p>In this example, there are three menus: "Reputation", "Information", and "IP Abuse". The "IP Abuse" menu is a submenu of the "Reputation" menu. The "IP Abuse" menu contains a URL item that opens "https://www.virustotal.com/gui/search/" when clicked. The selected text will be URL encoded, base64 encoded, and all equals signs will be removed before it's inserted into the URL.</p>
+
+            </div>
+        </div>
+    </div>
     <script src="options.js" type="module"></script>
 </body>
 </html>

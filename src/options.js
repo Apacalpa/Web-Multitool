@@ -6,6 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const fileInput = document.getElementById('fileInput');
     const linterOutput = document.getElementById('linterOutput');
 
+    const editor = CodeMirror.fromTextArea(document.getElementById('jsonDisplay'), {
+        lineNumbers: true,
+        mode: "application/json",
+        gutters: ["CodeMirror-lint-markers"],
+        lint: true
+    });
+
+    
     // Function to fetch and display menuItems.json
     function displayMenuItemsJSON() {
         chrome.storage.sync.get('menuItems', (result) => {
@@ -15,26 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 const menuItems = result.menuItems;
                 if (menuItems) {
                     const menuItemsJSON = JSON.stringify(menuItems, null, 2);
-                    jsonDisplay.value = menuItemsJSON;
-                    lintJSON(menuItemsJSON);
+                    editor.setValue(menuItemsJSON);
                 } else {
-                    jsonDisplay.value = 'No menu items found.';
+                    editor.setValue('No menu items found.');
                     linterOutput.textContent = '';
                     saveButton.disabled = false;
                 }
             }
         });
-    }
-
-    function lintJSON(jsonContent) {
-        try {
-            JSON.parse(jsonContent);
-            linterOutput.textContent = '';
-            saveButton.disabled = false;
-        } catch (error) {
-            linterOutput.textContent = 'JSON is not valid: ' + error.message;
-            saveButton.disabled = true;
-        }
     }
 
 
@@ -55,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.onload = function (event) {
             try {
                 const importedJSON = event.target.result;
-                jsonDisplay.value = importedJSON;
+                editor.setValue(importedJSON);
                 saveMenuItemsJSON(importedJSON);
             } catch (error) {
                 console.error('Error importing JSON:', error);
@@ -101,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     displayMenuItemsJSON();
 
     saveButton.addEventListener('click', function () {
-        saveMenuItemsJSON(jsonDisplay.value);
+        saveMenuItemsJSON(editor.getValue());
         sendMessageToBackground();
     });
 
@@ -118,9 +114,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     exportButton.addEventListener('click', function () {
         exportMenuItemsJSON();
-    });
-
-    jsonDisplay.addEventListener('input', function () {
-        lintJSON(jsonDisplay.value);
     });
 });
